@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 09:47:10 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 09:49:49 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	set_pixel(t_facral *fract, int x, int y)
 	int			i;
 	double		tmp;
 	int			color;
-	t_color		a;
 
 	i = -1;
 	z.i = 0;
@@ -60,7 +59,7 @@ void	set_pixel(t_facral *fract, int x, int y)
 		z.i += c.i;
 		if ((z.r * z.r) + (z.i * z.i) > fract->range)
 		{
-			color = create_trgb(i, &a);	
+			color = create_trgb(i, &fract->color);	
 			my_put_pixel(x, y, &fract->img, color);
 			return ;
 		}
