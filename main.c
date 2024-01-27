@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:51:42 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/26 23:37:23 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 11:47:58 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int main(int ac, char **av)
 {
 	t_facral	fract;
 
-
-	if ((ac == 2 && !ft_strncmp(av[1], "Mandelbrot", 11)))
+	fract.av = av;
+	if ((ac == 2 && !ft_strncmp(fract.av[1], "Mandelbrot", 11)))
 	{
-		init_windo(&fract, av[1]);
+		init_windo(&fract, fract.av[1]);
 		math(&fract);
 		mlx_loop(fract.mlx_ptr);
 	}
-	else if (ac == 4 && !ft_strncmp(av[1], "Julia", 6))
+	else if (ac == 4 && !ft_strncmp(fract.av[1], "Julia", 6))
 	{
-		init_windo(&fract, av[1]);
+		init_windo(&fract, fract.av[1]);
 		math(&fract);
 		mlx_loop(fract.mlx_ptr);
 	}

@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 09:44:36 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 12:52:12 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int keybord_press(int keycode, t_facral *fract)
 		fract->color.g += 31;
 		fract->color.r += 21;
 	}
-	printf("%f----->%f______code:%d\n",fract->shift_x,fract->shift_y ,keycode);
 	math(fract);
 	return (0);
 }
+
 int mouse_press(int button, int x, int y,t_facral *fract)
 {
 	(void)x;
@@ -49,16 +49,15 @@ int mouse_press(int button, int x, int y,t_facral *fract)
 	math(fract);
 	return (0);
 }
-// int press_x_windo(t_facral *fract)
-// {
-	
-// 	printf("worked exit: %d\n", 55);
-// }
-
+int nouse_move(int x, int y, t_facral *frct)
+{
+	frct->c.
+}
 void events(t_facral *fract)
 {
 	mlx_hook(fract->mlx_win, 02, (1L<<0), keybord_press, fract);
 	mlx_hook(fract->mlx_win, 04, (1L<<2), mouse_press, fract);
 	mlx_hook(fract->mlx_win, 17, (1L<<19), end_fracts, fract);
-	// mlx_hook(fract->mlx_win, 02, (1L<<0), keybord_press, fract);
+	// if (!ft_strncmp(fract->av[1], "Julia",6))
+	// 	mlx_hook(fract->mlx_win, 06, (0), keybord_press, fract);
 }

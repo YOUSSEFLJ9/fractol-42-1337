@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 09:49:49 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 11:50:05 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ double scale(double old_min, double old_max, double new_min, double new_max, dou
 	return ((new_max - new_min) * (x - old_min) / (old_max - old_min) + new_min);
 }
 
-int	create_trgb(int iter,t_color *a)
+int	create_colors(int iter,t_color *a)
 {
 	int	 r;
 	int	 g;
@@ -39,27 +39,21 @@ int	create_trgb(int iter,t_color *a)
 
 void	set_pixel(t_facral *fract, int x, int y)
 {
-	t_number	z;
-	t_number	c;
 	int			i;
 	double		tmp;
 	int			color;
 
 	i = -1;
-	z.i = 0;
-	z.r = 0; 
-	c.r = (scale(0, WIDTH , -2, 2 , x)) * fract->zoom + fract->shift_x;
-	c.i = (scale(0, HEIGHT, 2, -2, y)) * fract->zoom + fract->shift_y;
 	while (fract->etration > ++i)
 	{
-		tmp = (z.r * z.r) - (z.i * z.i);
-		z.i = 2 * z.i * z.r;
-		z.r = tmp;
-		z.r += c.r;
-		z.i += c.i;
-		if ((z.r * z.r) + (z.i * z.i) > fract->range)
+		tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
+		fract->z.i = 2 * fract->z.i * fract->z.r;
+		fract->z.r = tmp;
+		fract->z.r += fract->c.r;
+		fract->z.i += fract->c.i;
+		if ((fract->z.r * fract->z.r) + (fract->z.i * fract->z.i) > fract->range)
 		{
-			color = create_trgb(i, &fract->color);	
+			color = create_colors(i, &fract->color);	
 			my_put_pixel(x, y, &fract->img, color);
 			return ;
 		}
@@ -78,6 +72,7 @@ void	math(t_facral *fract)
 		x = 0;
 		while(x < WIDTH)
 		{
+			init_complix(fract, x, y);
 			set_pixel(fract, x ,y);
 			x++;
 		}

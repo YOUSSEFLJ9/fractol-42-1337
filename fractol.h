@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 09:41:56 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 11:49:40 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,23 @@ typedef struct s_img
 
 typedef struct s_fractol
 {
-	void 	*mlx_ptr;
-	void	*mlx_win;
-	t_img	img;
-	
-	int		range;
-	int		etration;
-	double	shift_x;
-	double	shift_y;
-	double	zoom;
-	t_color color;
+	void 		*mlx_ptr;
+	void		*mlx_win;
+	t_img		img;
+	int			range;
+	int			etration;
+	double		shift_x;
+	double		shift_y;
+	double		zoom;
+	t_number	c;
+	t_number	z;
+	t_color 	color;
+	char		**av;
 }		t_facral;
 
 /* FUNCTIONS */
+int mouse_move(int x, int y, t_facral *frct);
+double	scale(double old_min, double old_max, double new_min, double new_max, double x);
 int		end_fracts(t_facral *fract);
 double	scale(double old_min, double old_max, double new_min, double new_max, double x);
 void	set_pixel(t_facral *fract, int x, int y);
@@ -68,6 +72,6 @@ void	math(t_facral *fract);
 void	init_windo(t_facral *fract, char *name);
 void	error_and_exit(char *s, int exite);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-
+void	init_complix(t_facral *fract, int x, int y);
 
 # endif /*FRACTOL_H*/
