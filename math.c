@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 11:50:05 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/28 01:17:30 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	my_put_pixel(int x, int y, t_img *img, int color)
 
 double scale(double old_min, double old_max, double new_min, double new_max, double x)
 {
-	return ((new_max - new_min) * (x - old_min) / (old_max - old_min) + new_min);
+	return (((new_max - new_min) * (x - old_min) /(old_max - old_min)) + new_min);
 }
 
 int	create_colors(int iter,t_color *a)

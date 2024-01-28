@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 12:52:12 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/27 22:04:51 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ int mouse_press(int button, int x, int y,t_facral *fract)
 	math(fract);
 	return (0);
 }
-int nouse_move(int x, int y, t_facral *frct)
-{
-	frct->c.
-}
+// int nouse_move(int x, int y, t_facral *frct)
+// {
+// 	frct->c.
+// }
 void events(t_facral *fract)
 {
 	mlx_hook(fract->mlx_win, 02, (1L<<0), keybord_press, fract);

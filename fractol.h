@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/27 11:49:40 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/28 02:46:21 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_fractol
 	void 		*mlx_ptr;
 	void		*mlx_win;
 	t_img		img;
-	int			range;
+	float		range;
 	int			etration;
 	double		shift_x;
 	double		shift_y;
@@ -58,10 +58,13 @@ typedef struct s_fractol
 	t_number	z;
 	t_color 	color;
 	char		**av;
+	int			is_julia;
 }		t_facral;
 
 /* FUNCTIONS */
-int mouse_move(int x, int y, t_facral *frct);
+double	ft_atof(char *str);
+int		ft_isdigit(int c);
+int		mouse_move(int x, int y, t_facral *frct);
 double	scale(double old_min, double old_max, double new_min, double new_max, double x);
 int		end_fracts(t_facral *fract);
 double	scale(double old_min, double old_max, double new_min, double new_max, double x);
