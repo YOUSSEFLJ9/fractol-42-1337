@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:53:22 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/28 01:19:16 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/29 16:20:40 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	init_windo(t_facral *fract, char *name)
 	fract->zoom = 1.00;
 	fract->color.b = 9;
 	fract->color.g = 3;
-	fract->color.r = 5; 
+	fract->color.r = 5;
+	fract->str.r = -2;
+	fract->end.r = 2;
+	fract->str.i = 2;
+	fract->end.i = -2;
 	events(fract);
 }

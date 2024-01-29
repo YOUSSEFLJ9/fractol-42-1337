@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/28 02:46:21 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/29 16:15:38 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_fractol
 	t_color 	color;
 	char		**av;
 	int			is_julia;
+	t_number	str;
+	t_number	end;
 }		t_facral;
 
 /* FUNCTIONS */

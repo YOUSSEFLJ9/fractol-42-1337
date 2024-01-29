@@ -37,15 +37,15 @@ void	init_complix(t_facral *fract, int x, int y)
 	{
 		fract->c.r = ft_atof(fract->av[2]);
 		fract->c.i = ft_atof(fract->av[3]);
-		fract->z.r = (scale(0, WIDTH , -2, 2 , x)) * fract->zoom + fract->shift_x;
-		fract->z.i = (scale(0, HEIGHT, 2, -2, y)) * fract->zoom + fract->shift_y;
+		fract->z.r = (scale(0, WIDTH, fract->str.r, fract->end.r, x)) * fract->zoom + fract->shift_x;
+		fract->z.i = (scale(0, WIDTH, fract->str.r, fract->end.r, x))* fract->zoom + fract->shift_y;
 	}
 	else
 	{
 	fract->z.i = 0;
 	fract->z.r = 0; 
-	fract->c.r = (scale(0, WIDTH , -2, 2, x)) * fract->zoom + fract->shift_x;
-	fract->c.i = (scale(0, HEIGHT, 2, -2, y)) * fract->zoom + fract->shift_y;
+	fract->c.r = (scale(0, WIDTH, fract->str.r, fract->end.r, x)) * fract->zoom + fract->shift_x;
+	fract->c.i = (scale(0, HEIGHT, fract->str.i, fract->end.i, y)) * fract->zoom + fract->shift_y;
 	}
 }
 
