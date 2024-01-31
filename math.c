@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 01:01:07 by lj9              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:13:18 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	my_put_pixel(int x, int y, t_mg *img, int color)
 	*(unsigned int *)(img->addr + addrn) = color;
 }
 
-double	scale(double omin, double omax, double nmin, double nmax, double x)
+double	scale(double omax, double nmin, double nmax, double x)
 {
-	return (((nmax - nmin) * (x - omin) / (omax - omin)) + nmin);
+	return (((nmax - nmin) * (x - 0) / (omax - 0)) + nmin);
 }
 
 int	create_colors(int iter, t_color *a)

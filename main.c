@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:51:42 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/30 19:58:07 by lj9              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:24:44 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 // {
 // 	system("leaks fractol");
 // }
-int main(int ac, char **av)
+
+int	main(int ac, char **av)
 {
 	t_facral	fract;
 
@@ -37,6 +38,7 @@ int main(int ac, char **av)
 		mlx_loop(fract.mlx_ptr);
 	}
 	else
-		error_and_exit("USAGE:\n./fractol Mandelbrot.\n./fractol Julia x y.\n", -9);
+		error_and_exit(
+			"USAGE:\n./fractol Mandelbrot.\n./fractol Julia x y.\n", -9);
 	return (0);
 }

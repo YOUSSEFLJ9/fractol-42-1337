@@ -6,11 +6,27 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:53:22 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 01:03:32 by lj9              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:23:39 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+static void	init_values(t_facral *fract)
+{
+	fract->etration = 40;
+	fract->range = 4;
+	fract->shift_x = 0.0;
+	fract->shift_y = 0.0;
+	fract->zoom = 1.00;
+	fract->color.b = 9;
+	fract->color.g = 3;
+	fract->color.r = 5;
+	fract->str.r = -2;
+	fract->end.r = 2;
+	fract->str.i = 2;
+	fract->end.i = -2;
+}
 
 void	init_windo(t_facral *fract, char *name)
 {
@@ -29,17 +45,6 @@ void	init_windo(t_facral *fract, char *name)
 	fract->img.addr = mlx_get_data_addr(fract->img.img,
 			&fract->img.bits_per_pixel,
 			&fract->img.line_length, &fract->img.endian);
-	fract->etration = 40;
-	fract->range = 4;
-	fract->shift_x = 0.0;
-	fract->shift_y = 0.0;
-	fract->zoom = 1.00;
-	fract->color.b = 9;
-	fract->color.g = 3;
-	fract->color.r = 5;
-	fract->str.r = -2;
-	fract->end.r = 2;
-	fract->str.i = 2;
-	fract->end.i = -2;
+	init_values(fract);
 	events(fract);
 }

@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 01:02:14 by lj9              ###   ########.fr       */
+/*   Updated: 2024/01/31 22:15:42 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,9 @@ typedef struct s_fractol
 double	ft_atof(char *str);
 int		ft_isdigit(int c);
 int		mouse_move(int x, int y, t_facral *frct);
-double	scale(double old_min, double old_max, double new_min, double new_max, double x);
+/*double	scale(double old_min, double old_max, double new_min, 
+	double new_max, double x);*/
+double	scale(double old_max, double new_min, double new_max, double x);
 int		end_fracts(t_facral *fract);
 void	set_pixel(t_facral *fract, int x, int y);
 void	events(t_facral *fract);
