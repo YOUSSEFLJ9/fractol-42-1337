@@ -3,15 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+         #
+#    By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/25 17:28:56 by ymomen            #+#    #+#              #
-#    Updated: 2024/01/28 02:46:47 by ymomen           ###   ########.fr        #
+#    Updated: 2024/01/30 19:59:21 by lj9              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# INC=/usr/include
+INCLIB=$(INC)/../lib
+LFLAGS = -Lminilibx-linux -lmlx_Linux -lXext -lX11
 CC =cc
-CFLAGS =-Wall -Wextra -Werror
+CFLAGS =   -O3
 MLX=-lmlx -framework OpenGL -framework AppKit
 SRC =ft_strlen.c main.c math.c outils.c strncmp.c windo.c events.c ft_isdigit.c
 OBJ =$(SRC:.c=.o)
@@ -21,14 +24,17 @@ NAME =fractol
 NAME_BNS =pipex_bonus
 HEADER = fractol.h
 RM =rm -rf
+LFLAGS += -lbsd
 
-%.o : %.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+# %.o : %.c $(HEADER)
+# 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
-$(NAME) : $(OBJ)
-	$(CC) $(MLX) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LFLAGS) 
+# $(NAME) : $(OBJ)
+# 	$(CC) $(MLX) $(CFLAGS) $(OBJ) -o $(NAME)
 
 bonus: $(OBJ_B) 
 	$(CC) $(CFLAGS) $(OBJ_B) -o $(NAME_BNS)

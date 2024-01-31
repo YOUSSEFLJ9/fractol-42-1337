@@ -3,33 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/28 01:17:30 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/01/31 01:01:07 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	my_put_pixel(int x, int y, t_img *img, int color)
+void	my_put_pixel(int x, int y, t_mg *img, int color)
 {
 	int	addrn;
 
-	addrn = (y * img->line_length) + (x * ( img->bits_per_pixel / 8));
+	addrn = (y * img->line_length) + (x * (img->bits_per_pixel / 8));
 	*(unsigned int *)(img->addr + addrn) = color;
 }
 
-double scale(double old_min, double old_max, double new_min, double new_max, double x)
+double	scale(double omin, double omax, double nmin, double nmax, double x)
 {
-	return (((new_max - new_min) * (x - old_min) /(old_max - old_min)) + new_min);
+	return (((nmax - nmin) * (x - omin) / (omax - omin)) + nmin);
 }
 
-int	create_colors(int iter,t_color *a)
+int	create_colors(int iter, t_color *a)
 {
-	int	 r;
-	int	 g;
-	int	 b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = (iter * a->r) % 256;
 	g = (iter * a->g) % 256;
@@ -51,9 +51,10 @@ void	set_pixel(t_facral *fract, int x, int y)
 		fract->z.r = tmp;
 		fract->z.r += fract->c.r;
 		fract->z.i += fract->c.i;
-		if ((fract->z.r * fract->z.r) + (fract->z.i * fract->z.i) > fract->range)
+		if ((fract->z.r * fract->z.r) + (fract->z.i * fract->z.i)
+			> fract->range)
 		{
-			color = create_colors(i, &fract->color);	
+			color = create_colors(i, &fract->color);
 			my_put_pixel(x, y, &fract->img, color);
 			return ;
 		}
@@ -67,16 +68,17 @@ void	math(t_facral *fract)
 	int	y;
 
 	y = 0;
-	while(y < HEIGHT)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while(x < WIDTH)
+		while (x < WIDTH)
 		{
 			init_complix(fract, x, y);
-			set_pixel(fract, x ,y);
+			set_pixel(fract, x, y);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fract->mlx_ptr, fract->mlx_win, fract->img.img, 0, 0);
+	mlx_put_image_to_window(fract->mlx_ptr, fract->mlx_win,
+		fract->img.img, 0, 0);
 }
