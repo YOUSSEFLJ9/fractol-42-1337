@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 22:15:42 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 20:53:38 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
+# include <math.h>
 # include <stdlib.h>
 # include "minilibx-linux/mlx.h"
 
@@ -79,5 +80,6 @@ void	init_windo(t_facral *fract, char *name);
 void	error_and_exit(char *s, int exite);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	init_complix(t_facral *fract, int x, int y);
+void	init_values(t_facral *fract);
 
 #endif /*FRACTOL_H*/

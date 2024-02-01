@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:51:42 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 22:24:44 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 23:14:55 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 // 	system("leaks fractol");
 // }
 
+	/* atexit(ff);*/
 int	main(int ac, char **av)
 {
 	t_facral	fract;
 
-	// atexit(ff);
 	fract.av = av;
 	if ((ac == 2 && !ft_strncmp(fract.av[1], "Mandelbrot", 11)))
 	{
@@ -37,6 +37,14 @@ int	main(int ac, char **av)
 		math(&fract);
 		mlx_loop(fract.mlx_ptr);
 	}
+	else if (ac == 2 && !ft_strncmp(fract.av[1], "Tricorn", 8))
+	{
+		init_windo(&fract, fract.av[1]);
+		fract.is_julia = 2;
+		math(&fract);
+		mlx_loop(fract.mlx_ptr);
+	}
+	
 	else
 		error_and_exit(
 			"USAGE:\n./fractol Mandelbrot.\n./fractol Julia x y.\n", -9);

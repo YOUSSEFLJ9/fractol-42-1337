@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 00:57:12 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 16:44:48 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	keybord_press(int keycode, t_facral *fract)
 {
+	if (keycode == 65293)
+		init_values(fract);
 	if (keycode == 65307)
 		end_fracts(fract);
 	else if (keycode == 65363)
@@ -53,7 +55,7 @@ int	mouse_press(int button, int x, int y, t_facral *fract)
 		if (button == 1 || button == 5)
 			zoom = 0.8;
 		else
-			zoom = 1.3;
+			zoom = 1.2;
 		fract->zoom *= zoom;
 		fract->str.r = mousex + zoom * (fract->str.r - mousex);
 		fract->end.r = mousex + zoom * (fract->end.r - mousex);

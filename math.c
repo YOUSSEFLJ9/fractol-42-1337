@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 22:13:18 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 23:14:38 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,36 @@ void	set_pixel(t_facral *fract, int x, int y)
 	int			color;
 
 	i = -1;
+	double pervr = 0;
+	//double pervi= 0;
+	double ar;
 	while (fract->etration > ++i)
 	{
-		tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
-		fract->z.i = 2 * fract->z.i * fract->z.r;
-		fract->z.r = tmp;
-		fract->z.r += fract->c.r;
-		fract->z.i += fract->c.i;
+		if (fract->is_julia == 2)
+		{
+			tmp = fract->z.r* fract->z.r - fract->z.i*fract->z.i+ fract->c.r;
+    	    fract->z.i = -2 * fract->z.r *fract->z.i + fract->c.i;
+       		fract->z.r = tmp;
+		}
+		else if (fract->is_julia == 3)
+		{
+			
+			tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
+			fract->z.i = 2 * fract->z.i * fract->z.r;
+			ar = fract->z.r;
+		
+			fract->z.r = tmp - (0.5 * pervr)+ fract->c.r;
+			//fract->z.i = tmp - (0.5 * pervi)+ fract->c.i;
+			pervr = ar;
+		}
+		else
+		{	
+			tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
+			fract->z.i = 2 * fract->z.i * fract->z.r;
+			fract->z.r = tmp;
+			fract->z.r += fract->c.r;
+			fract->z.i += fract->c.i;
+		}
 		if ((fract->z.r * fract->z.r) + (fract->z.i * fract->z.i)
 			> fract->range)
 		{

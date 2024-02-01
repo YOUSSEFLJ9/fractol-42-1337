@@ -6,13 +6,13 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:53:22 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 22:23:39 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 20:53:17 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-static void	init_values(t_facral *fract)
+void	init_values(t_facral *fract)
 {
 	fract->etration = 40;
 	fract->range = 4;
@@ -35,7 +35,10 @@ void	init_windo(t_facral *fract, char *name)
 		error_and_exit("init_mlx", 1);
 	fract->mlx_win = mlx_new_window(fract->mlx_ptr, WIDTH, HEIGHT, name);
 	if (fract->mlx_win == NULL)
+	{
+		free(fract->mlx_ptr);
 		error_and_exit("mlx_new_win", 1);
+	}
 	fract->img.img = mlx_new_image(fract->mlx_ptr, WIDTH, HEIGHT);
 	if (fract->img.img == NULL)
 	{

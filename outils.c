@@ -6,7 +6,7 @@
 /*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:50:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/31 22:17:41 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/01 23:00:37 by lj9              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,23 @@ void	error_and_exit(char *s, int exite)
 		exit(exite);
 }
 
+void	free_it(void *ptr)
+{
+	if (ptr != NULL)
+		free(ptr);
+}
+
 int	end_fracts(t_facral *fract)
 {
 	mlx_destroy_image(fract->mlx_ptr, fract->img.img);
 	mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
+	mlx_destroy_display(fract->mlx_ptr);
 	exit(0);
 }
 
 void	init_complix(t_facral *fract, int x, int y)
 {
-	if (fract->is_julia)
+	if (fract->is_julia == 1)
 	{
 		fract->c.r = ft_atof(fract->av[2]);
 		fract->c.i = ft_atof(fract->av[3]);
