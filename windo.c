@@ -6,27 +6,15 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:53:22 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/29 16:20:40 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/02 23:30:35 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-void	init_windo(t_facral *fract, char *name)
+
+void	init_values(t_fractol *fract)
 {
-	fract->mlx_ptr = mlx_init();
-	if (fract->mlx_ptr == NULL)
-		error_and_exit("init_mlx", 1);
-	fract->mlx_win = mlx_new_window(fract->mlx_ptr, WIDTH, HEIGHT, name);
-	if (fract->mlx_win == NULL)
-		error_and_exit("mlx_new_win", 1);
-	fract->img.img = mlx_new_image(fract->mlx_ptr, WIDTH, HEIGHT);
-	if (fract->img.img == NULL)
-	{
-		mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
-		error_and_exit("mlx_new_img", 1);
-	}
-	fract->img.addr = mlx_get_data_addr(fract->img.img, &fract->img.bits_per_pixel, &fract->img.line_length, &fract->img.endian);
-	fract->etration = 50;
+	fract->etration = 40;
 	fract->range = 4;
 	fract->shift_x = 0.0;
 	fract->shift_y = 0.0;
@@ -38,5 +26,28 @@ void	init_windo(t_facral *fract, char *name)
 	fract->end.r = 2;
 	fract->str.i = 2;
 	fract->end.i = -2;
+}
+
+void	init_windo(t_fractol *fract, char *name)
+{
+	fract->mlx_ptr = mlx_init();
+	if (fract->mlx_ptr == NULL)
+		error_and_exit("init_mlx", 1);
+	fract->mlx_win = mlx_new_window(fract->mlx_ptr, WIDTH, HEIGHT, name);
+	if (fract->mlx_win == NULL)
+	{
+		free(fract->mlx_ptr);
+		error_and_exit("mlx_new_win", 1);
+	}
+	fract->img.img = mlx_new_image(fract->mlx_ptr, WIDTH, HEIGHT);
+	if (fract->img.img == NULL)
+	{
+		mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
+		error_and_exit("mlx_new_img", 1);
+	}
+	fract->img.addr = mlx_get_data_addr(fract->img.img,
+			&fract->img.bits_per_pixel,
+			&fract->img.line_length, &fract->img.endian);
+	init_values(fract);
 	events(fract);
 }

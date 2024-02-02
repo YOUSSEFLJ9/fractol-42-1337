@@ -6,18 +6,18 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:51:57 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/26 17:52:53 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/03 00:10:07 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-size_t ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }

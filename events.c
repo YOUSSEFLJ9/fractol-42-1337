@@ -6,14 +6,16 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/01/29 16:17:44 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/02 23:32:04 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	keybord_press(int keycode, t_facral *fract)
+int	keybord_press(int keycode, t_fractol *fract)
 {
+	if (keycode == 76 || keycode == 36)
+		init_values(fract);
 	if (keycode == 53)
 		end_fracts(fract);
 	else if (keycode == 124)
@@ -25,9 +27,9 @@ int	keybord_press(int keycode, t_facral *fract)
 	else if (keycode == 125)
 		fract->shift_y -= (0.5 * fract->zoom);
 	else if (keycode == 69)
-		fract->etration += 10;
+		fract->etration += 5;
 	else if (keycode == 78)
-		fract->etration -= 10;
+		fract->etration -= 5;
 	else if (keycode == 49)
 	{
 		fract->color.b += 11;
@@ -37,95 +39,43 @@ int	keybord_press(int keycode, t_facral *fract)
 	math(fract);
 	return (0);
 }
-// void    zoom_in(t_facral *fc, t_number mouse)
-// {
-//     double    z_factor;
 
-//     z_factor = 0.5;
-//     fc->strt.r = (fc->strt.r - mouse.r) + z_factor + mouse.r;
-//     fc->strt.i = (fc->strt.i - mouse.i) + z_factor + mouse.i;
-//     fc->end.r = (fc->end.r - mouse.r) + z_factor + mouse.r;
-//     fc->end.i = (fc->end.i - mouse.i) + z_factor + mouse.i;
-//     // fc->mx_iter += 7;
-//     // render(fc);
-// }
-
-// int	mouse_press(int button, int x, int y, t_facral *fract)
-// {
-// 	t_number mouse;
-
-// 	if (button == 5 || button == 4)
-// 	{
-// 		mouse.i = y;
-// 		mouse.r = x;
-
-// 		if (button == 5) // Scroll Down (Zoom Out)
-// 			fract->zoom *= 1.3;
-// 		else if (button == 4) // Scroll Up (Zoom In)
-// 			fract->zoom *= 0.8;
-
-// 		// Adjust shift using the mouse coordinates
-// 		fract->shift_x += scale(0, (x - WIDTH / 2), -2, 2, x) * fract->zoom;
-// 		fract->shift_y += (y - HEIGHT / 2) * fract->zoom;
-
-// 		math(fract);
-// 	}
-// 	return (0);
-// }
-
-
-int	mouse_press(int button, int x, int y, t_facral *fract)
+int	mouse_press(int button, int x, int y, t_fractol *fract)
 {
-	static t_number prev;
-
-	t_number mouse;
+	double	mousex;
+	double	mousey;
+	double	zoom;
 
 	if (button == 5 || button == 4)
 	{
-		mouse.i = y;
-		mouse.r = x;
+		mousex = fract->str.r + ((double)x / WIDTH)
+			* (fract->end.r - fract->str.r);
+		mousey = fract->str.i + ((double)y / HEIGHT)
+			* (fract->end.i - fract->str.i);
 		if (button == 5)
-		{
-			fract->zoom *= 0.8;
-		}	
-		else if (button == 4)
-			fract->zoom *= 1.3;
-
-		if (prev.r != x || prev.i != y)
-		{
-			prev.r = x;
-			prev.i = y;
-			fract->shift_x += (scale(0, WIDTH, fract->str.r, fract->end.r, x)) * fract->zoom;
-			fract->shift_y += (scale(0, HEIGHT, fract->str.i, fract->end.i, y)) * fract->zoom;
-		// 	        mouse_x_scaled = scale(x, 0, WIN_WIDTH, program->left_x,
-        //         		program->right_x);
-        // 			mouse_y_scaled = scale(y, 0, WIN_HEIGHT, program->top_y,
-        //         		program->bottom_y);
-        // 			if (keycode == 4)
-        //     		zoom_factor = 0.85;
-        // 			else
-        //     		zoom_factor = 1.15;
-        // 			program->left_x = mouse_x_scaled + zoom_factor * (
-        //         		program->left_x - mouse_x_scaled);
-        // 			program->right_x = mouse_x_scaled + zoom_factor * (
-        //         		program->right_x - mouse_x_scaled);
-        // 			program->top_y = mouse_y_scaled + zoom_factor * (
-        //         		program->top_y - mouse_y_scaled);
-        // 			program->bottom_y = mouse_y_scaled + zoom_factor * (
-        //         		program->bottom_y - mouse_y_scaled);
-		}
+			zoom = 0.8;
+		else
+			zoom = 1.2;
+		fract->zoom *= zoom;
+		fract->str.r = mousex + zoom * (fract->str.r - mousex);
+		fract->end.r = mousex + zoom * (fract->end.r - mousex);
+		fract->str.i = mousey + zoom * (fract->str.i - mousey);
+		fract->end.i = mousey + zoom * (fract->end.i - mousey);
 		math(fract);
 	}
 	return (0);
 }
 
-
-
-
-
-void	events(t_facral *fract)
+int	end_fracts(t_fractol *fract)
 {
-	mlx_hook(fract->mlx_win, 02, 0, keybord_press, fract);
-	mlx_hook(fract->mlx_win, 04, 0, mouse_press, fract);
-	mlx_hook(fract->mlx_win, 17, 0, end_fracts, fract);
+	mlx_destroy_image(fract->mlx_ptr, fract->img.img);
+	mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
+	exit(0);
+}
+
+void	events(t_fractol *fract)
+{
+	mlx_hook(fract->mlx_win, 02, (1L << 0), keybord_press, fract);
+	mlx_hook(fract->mlx_win, 04, (1L << 2), mouse_press, fract);
+	mlx_hook(fract->mlx_win, 17, (1L << 17), end_fracts, fract);
 }
