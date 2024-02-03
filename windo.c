@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   windo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:53:22 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/01 20:53:17 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/03 13:38:41 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	init_values(t_facral *fract)
+void	init_values(t_fractol *fract)
 {
 	fract->etration = 40;
 	fract->range = 4;
@@ -22,13 +22,23 @@ void	init_values(t_facral *fract)
 	fract->color.b = 9;
 	fract->color.g = 3;
 	fract->color.r = 5;
-	fract->str.r = -2;
-	fract->end.r = 2;
-	fract->str.i = 2;
-	fract->end.i = -2;
+	if ((double)WIDTH / HEIGHT >= 1)
+	{
+		fract->str.r = -2 * ((double)WIDTH / HEIGHT);
+		fract->end.r = 2 * ((double)WIDTH / HEIGHT);
+		fract->str.i = 2;
+		fract->end.i = -2;
+	}
+	else
+	{
+		fract->str.r = -2;
+		fract->end.r = 2;
+		fract->str.i = 2 * ((double)HEIGHT / WIDTH);
+		fract->end.i = -2 * ((double)HEIGHT / WIDTH);
+	}
 }
 
-void	init_windo(t_facral *fract, char *name)
+void	init_windo(t_fractol *fract, char *name)
 {
 	fract->mlx_ptr = mlx_init();
 	if (fract->mlx_ptr == NULL)

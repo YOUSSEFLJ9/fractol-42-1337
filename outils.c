@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   outils.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:50:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/01 23:00:37 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/03 14:35:09 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+int	search_wrong_input(char **av)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	if (!av || !av[i])
+		return (0);
+	while (av[i])
+	{
+		j = 0;
+		if (!ft_isdigit(av[i][j]) && !av[i][j + 1])
+			return (0);
+		while (av[i][j])
+		{
+			if (!ft_isdigit(av[i][j]) && av[i][j] && av[i][j] != '+'
+				&& av[i][j] != '-' && av[i][j] != ' ' && av[i][j] != '.')
+				return (0);
+			if ((av[i][j] == '+' || av[i][j] == '-')
+				&& !ft_isdigit(av[i][j + 1]))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 void	error_and_exit(char *s, int exite)
 {
@@ -25,24 +53,16 @@ void	error_and_exit(char *s, int exite)
 		exit(exite);
 }
 
-void	free_it(void *ptr)
-{
-	if (ptr != NULL)
-		free(ptr);
-}
-
-int	end_fracts(t_facral *fract)
-{
-	mlx_destroy_image(fract->mlx_ptr, fract->img.img);
-	mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
-	mlx_destroy_display(fract->mlx_ptr);
-	exit(0);
-}
-
-void	init_complix(t_facral *fract, int x, int y)
+void	init_complix(t_fractol *fract, int x, int y)
 {
 	if (fract->is_julia == 1)
 	{
+		if (!search_wrong_input(&fract->av[2]))
+		{
+			mlx_destroy_image(fract->mlx_ptr, fract->img.img);
+			mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
+			error_and_exit("it must be valid doubles\n", -9);
+		}
 		fract->c.r = ft_atof(fract->av[2]);
 		fract->c.i = ft_atof(fract->av[3]);
 		fract->z.r = (scale(WIDTH, fract->str.r, fract->end.r, x))
@@ -59,6 +79,20 @@ void	init_complix(t_facral *fract, int x, int y)
 		fract->c.i = (scale(HEIGHT, fract->str.i, fract->end.i, y))
 			+ fract->shift_y;
 	}
+}
+
+void	app_formula(t_fractol *frc)
+{
+	double	tmp;
+
+	tmp = frc->z.r * frc->z.r - frc->z.i * frc->z.i;
+	if (frc->is_julia == 2)
+		frc->z.i = -2 * frc->z.r * frc->z.i;
+	else
+		frc->z.i = 2 * frc->z.i * frc->z.r;
+	frc->z.r = tmp;
+	frc->z.r += frc->c.r;
+	frc->z.i += frc->c.i;
 }
 
 double	ft_atof(char *str)

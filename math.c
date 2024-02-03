@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:38:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/01 23:14:38 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/03 13:45:27 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,55 +37,26 @@ int	create_colors(int iter, t_color *a)
 	return (r << 16 | g << 8 | b);
 }
 
-void	set_pixel(t_facral *fract, int x, int y)
+void	set_pixel(t_fractol *frc, int x, int y)
 {
 	int			i;
-	double		tmp;
 	int			color;
 
 	i = -1;
-	double pervr = 0;
-	//double pervi= 0;
-	double ar;
-	while (fract->etration > ++i)
+	while (frc->etration > ++i)
 	{
-		if (fract->is_julia == 2)
+		app_formula(frc);
+		if ((frc->z.r * frc->z.r) + (frc->z.i * frc->z.i) > frc->range)
 		{
-			tmp = fract->z.r* fract->z.r - fract->z.i*fract->z.i+ fract->c.r;
-    	    fract->z.i = -2 * fract->z.r *fract->z.i + fract->c.i;
-       		fract->z.r = tmp;
-		}
-		else if (fract->is_julia == 3)
-		{
-			
-			tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
-			fract->z.i = 2 * fract->z.i * fract->z.r;
-			ar = fract->z.r;
-		
-			fract->z.r = tmp - (0.5 * pervr)+ fract->c.r;
-			//fract->z.i = tmp - (0.5 * pervi)+ fract->c.i;
-			pervr = ar;
-		}
-		else
-		{	
-			tmp = (fract->z.r * fract->z.r) - (fract->z.i * fract->z.i);
-			fract->z.i = 2 * fract->z.i * fract->z.r;
-			fract->z.r = tmp;
-			fract->z.r += fract->c.r;
-			fract->z.i += fract->c.i;
-		}
-		if ((fract->z.r * fract->z.r) + (fract->z.i * fract->z.i)
-			> fract->range)
-		{
-			color = create_colors(i, &fract->color);
-			my_put_pixel(x, y, &fract->img, color);
+			color = create_colors(i, &frc->color);
+			my_put_pixel(x, y, &frc->img, color);
 			return ;
 		}
 	}
-	my_put_pixel(x, y, &fract->img, 0x0000000);
+	my_put_pixel(x, y, &frc->img, 0x0000000);
 }
 
-void	math(t_facral *fract)
+void	math(t_fractol *frc)
 {
 	int	x;
 	int	y;
@@ -96,12 +67,12 @@ void	math(t_facral *fract)
 		x = 0;
 		while (x < WIDTH)
 		{
-			init_complix(fract, x, y);
-			set_pixel(fract, x, y);
+			init_complix(frc, x, y);
+			set_pixel(frc, x, y);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fract->mlx_ptr, fract->mlx_win,
-		fract->img.img, 0, 0);
+	mlx_put_image_to_window(frc->mlx_ptr, frc->mlx_win,
+		frc->img.img, 0, 0);
 }

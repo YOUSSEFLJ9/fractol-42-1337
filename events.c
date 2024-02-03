@@ -3,34 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/01 16:44:48 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/03 13:47:10 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int	keybord_press(int keycode, t_facral *fract)
+int	keybord_press(int keycode, t_fractol *fract)
 {
-	if (keycode == 65293)
+	if (keycode == 76 || keycode == 36)
 		init_values(fract);
-	if (keycode == 65307)
+	if (keycode == 53)
 		end_fracts(fract);
-	else if (keycode == 65363)
+	else if (keycode == 124)
 		fract->shift_x += (0.5 * fract->zoom);
-	else if (keycode == 65361)
+	else if (keycode == 123)
 		fract->shift_x -= (0.5 * fract->zoom);
-	else if (keycode == 65362)
+	else if (keycode == 126)
 		fract->shift_y += (0.5 * fract->zoom);
-	else if (keycode == 65364)
+	else if (keycode == 125)
 		fract->shift_y -= (0.5 * fract->zoom);
-	else if (keycode == 65365)
+	else if (keycode == 69)
 		fract->etration += 5;
-	else if (keycode == 65366)
+	else if (keycode == 78)
 		fract->etration -= 5;
-	else if (keycode == 32)
+	else if (keycode == 49)
 	{
 		fract->color.b += 11;
 		fract->color.g += 31;
@@ -40,20 +40,22 @@ int	keybord_press(int keycode, t_facral *fract)
 	return (0);
 }
 
-int	mouse_press(int button, int x, int y, t_facral *fract)
+int	mouse_press(int button, int x, int y, t_fractol *fract)
 {
 	double	mousex;
 	double	mousey;
 	double	zoom;
 
-	if (button == 5 || button == 4 || button == 3 || button == 1)
+	if (button == 5 || button == 4)
 	{
-		mousex = fract->str.r + ((double)x / WIDTH)
-			* (fract->end.r - fract->str.r);
-		mousey = fract->str.i + ((double)y / HEIGHT)
-			* (fract->end.i - fract->str.i);
-		if (button == 1 || button == 5)
+		mousex = scale(WIDTH, fract->str.r, fract->end.r, x);
+		mousey = scale(HEIGHT, fract->str.i, fract->end.i, y);
+		fract->etration -= 2;
+		if (button == 5)
+		{
 			zoom = 0.8;
+			fract->etration += 4;
+		}
 		else
 			zoom = 1.2;
 		fract->zoom *= zoom;
@@ -66,9 +68,16 @@ int	mouse_press(int button, int x, int y, t_facral *fract)
 	return (0);
 }
 
-void	events(t_facral *fract)
+int	end_fracts(t_fractol *fract)
 {
-	mlx_hook(fract->mlx_win, 02, (1L << 0), keybord_press, fract);
-	mlx_hook(fract->mlx_win, 04, (1L << 2), mouse_press, fract);
-	mlx_hook(fract->mlx_win, 17, (1L << 17), end_fracts, fract);
+	mlx_destroy_image(fract->mlx_ptr, fract->img.img);
+	mlx_destroy_window(fract->mlx_ptr, fract->mlx_win);
+	exit(0);
+}
+
+void	events(t_fractol *fract)
+{
+	mlx_hook(fract->mlx_win, 02, 0, keybord_press, fract);
+	mlx_hook(fract->mlx_win, 04, 0, mouse_press, fract);
+	mlx_hook(fract->mlx_win, 17, 0, end_fracts, fract);
 }

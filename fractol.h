@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lj9 <lj9@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/01 20:53:38 by lj9              ###   ########.fr       */
+/*   Updated: 2024/02/03 13:49:20 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
-# include <math.h>
 # include <stdlib.h>
-# include "minilibx-linux/mlx.h"
-
-# define HEIGHT 800
-# define WIDTH 800
+# include <mlx.h>
+# ifndef HEIGHT
+#  define HEIGHT 800
+# endif /*HEIGHT*/
+# ifndef WIDTH
+#  define WIDTH 800
+# endif /*WIDTH*/
 
 typedef struct s_color
 {
@@ -62,24 +64,24 @@ typedef struct s_fractol
 	int			is_julia;
 	t_number	str;
 	t_number	end;
-}		t_facral;
+}		t_fractol;
 
 /* FUNCTIONS */
+void	app_formula(t_fractol *frc);
+int		keybord_press(int keycode, t_fractol *fract);
+int		mouse_press(int button, int x, int y, t_fractol *fract);
+int		end_fracts(t_fractol *fract);
 double	ft_atof(char *str);
 int		ft_isdigit(int c);
-int		mouse_move(int x, int y, t_facral *frct);
-/*double	scale(double old_min, double old_max, double new_min, 
-	double new_max, double x);*/
 double	scale(double old_max, double new_min, double new_max, double x);
-int		end_fracts(t_facral *fract);
-void	set_pixel(t_facral *fract, int x, int y);
-void	events(t_facral *fract);
+void	set_pixel(t_fractol *fract, int x, int y);
+void	events(t_fractol *fract);
 size_t	ft_strlen(char *str);
-void	math(t_facral *fract);
-void	init_windo(t_facral *fract, char *name);
+void	math(t_fractol *fract);
+void	init_windo(t_fractol *fract, char *name);
 void	error_and_exit(char *s, int exite);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	init_complix(t_facral *fract, int x, int y);
-void	init_values(t_facral *fract);
+void	init_complix(t_fractol *fract, int x, int y);
+void	init_values(t_fractol *fract);
 
 #endif /*FRACTOL_H*/
