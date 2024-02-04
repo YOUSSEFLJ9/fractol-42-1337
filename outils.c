@@ -6,11 +6,39 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:50:35 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/03 00:07:09 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/04 12:32:16 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+int	search_wrong_input(char *av)
+{
+	int	i;
+	int	coma;
+
+	i = 0;
+	coma = 0;
+	if (!av || !av[i] || av[i] == '.')
+		return (0);
+	if ((av[i] == '+' || av[i] == '-'))
+		i++;
+	if (!ft_isdigit(av[i]))
+		return (0);
+	while (av[i])
+	{
+		if (!ft_isdigit(av[i]) && !ft_isdigit(av[i + 1]))
+			return (0);
+		if (av[i] != '.' && !ft_isdigit(av[i]))
+			return (0);
+		if (av[i] == '.' && coma < 2)
+			coma++;
+		else if (coma >= 2)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
 void	error_and_exit(char *s, int exite)
 {
@@ -51,20 +79,14 @@ void	app_formula(t_fractol *frc)
 {
 	double	tmp;
 
+	tmp = frc->z.r * frc->z.r - frc->z.i * frc->z.i;
 	if (frc->is_julia == 2)
-	{
-		tmp = frc->z.r * frc->z.r - frc->z.i * frc->z.i + frc->c.r;
-		frc->z.i = -2 * frc->z.r * frc->z.i + frc->c.i;
-		frc->z.r = tmp;
-	}
+		frc->z.i = -2 * frc->z.r * frc->z.i;
 	else
-	{
-		tmp = (frc->z.r * frc->z.r) - (frc->z.i * frc->z.i);
 		frc->z.i = 2 * frc->z.i * frc->z.r;
-		frc->z.r = tmp;
-		frc->z.r += frc->c.r;
-		frc->z.i += frc->c.i;
-	}
+	frc->z.r = tmp;
+	frc->z.r += frc->c.r;
+	frc->z.i += frc->c.i;
 }
 
 double	ft_atof(char *str)

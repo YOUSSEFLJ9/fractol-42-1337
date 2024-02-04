@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 15:52:24 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/03 00:11:02 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/04 12:34:06 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <errno.h>
-# include <math.h>
 # include <stdlib.h>
 # include <mlx.h>
-
-# define HEIGHT 800
-# define WIDTH 800
+# ifndef HEIGHT
+#  define HEIGHT 500
+# endif /*HEIGHT*/
+# ifndef WIDTH
+#  define WIDTH 500
+# endif /*WIDTH*/
 
 typedef struct s_color
 {
@@ -64,9 +66,9 @@ typedef struct s_fractol
 	t_number	end;
 }		t_fractol;
 
-/*double	scale(double old_min, double old_max, double new_min, 
-	double new_max, double x);*/
 /* FUNCTIONS */
+void	check_resolution(void);
+int		search_wrong_input(char *av);
 void	app_formula(t_fractol *frc);
 int		keybord_press(int keycode, t_fractol *fract);
 int		mouse_press(int button, int x, int y, t_fractol *fract);

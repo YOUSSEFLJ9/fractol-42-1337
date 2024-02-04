@@ -6,7 +6,7 @@
 /*   By: ymomen <ymomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 02:43:56 by ymomen            #+#    #+#             */
-/*   Updated: 2024/02/02 23:32:04 by ymomen           ###   ########.fr       */
+/*   Updated: 2024/02/03 18:19:38 by ymomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,14 @@ int	mouse_press(int button, int x, int y, t_fractol *fract)
 
 	if (button == 5 || button == 4)
 	{
-		mousex = fract->str.r + ((double)x / WIDTH)
-			* (fract->end.r - fract->str.r);
-		mousey = fract->str.i + ((double)y / HEIGHT)
-			* (fract->end.i - fract->str.i);
+		mousex = scale(WIDTH, fract->str.r, fract->end.r, x);
+		mousey = scale(HEIGHT, fract->str.i, fract->end.i, y);
+		fract->etration -= 2;
 		if (button == 5)
+		{
 			zoom = 0.8;
+			fract->etration += 4;
+		}
 		else
 			zoom = 1.2;
 		fract->zoom *= zoom;
@@ -75,7 +77,7 @@ int	end_fracts(t_fractol *fract)
 
 void	events(t_fractol *fract)
 {
-	mlx_hook(fract->mlx_win, 02, (1L << 0), keybord_press, fract);
-	mlx_hook(fract->mlx_win, 04, (1L << 2), mouse_press, fract);
-	mlx_hook(fract->mlx_win, 17, (1L << 17), end_fracts, fract);
+	mlx_hook(fract->mlx_win, 02, 0, keybord_press, fract);
+	mlx_hook(fract->mlx_win, 04, 0, mouse_press, fract);
+	mlx_hook(fract->mlx_win, 17, 0, end_fracts, fract);
 }
